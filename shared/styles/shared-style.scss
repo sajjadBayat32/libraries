@@ -1,0 +1,107 @@
+/*******************************Color Palette****************************/
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-success {
+  color: var(--secondary-color) !important;
+}
+
+.text-warning {
+  color: #ffbc00 !important;
+}
+
+.text-danger {
+  color: var(--error-color) !important;
+}
+
+.bg-green {
+  background-color: var(--secondary-color) !important;
+  color: #fff !important;
+}
+
+.bg-blue {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+.bg-red {
+  background-color: var(--error-color) !important;
+  color: #fff !important;
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #1bc8ff, var(--primary-color));
+}
+
+.red-gradient {
+  background: linear-gradient(320deg, #f1696b, var(--error-color));
+}
+
+/*****************************Android click animation*************************************/
+.ripple {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.click-ripple {
+  position: absolute;
+  background: rgba(0, 0, 0, .25);
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.click-ripple.show {
+  -webkit-animation: clickRipple .5s ease-out;
+  animation: clickRipple .5s ease-out;
+}
+
+@-webkit-keyframes clickRipple {
+  to {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes clickRipple {
+  to {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/*****************************Common*************************************/
+*:focus {
+  box-shadow: none !important;
+}
+
+.price span {
+  &.toman {
+    font-size: 80%;
+    position: relative;
+    top: -6px;
+  }
+}
+
+form {
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*****************************Scrollbar*************************************/
+::-webkit-scrollbar {
+  width: 0 !important;
+}

@@ -1,0 +1,241 @@
+
+/************************************ button **********************************/
+.ant-btn {
+  border-radius: 4px;
+}
+
+.ant-btn-text:hover,
+.ant-btn-text:focus {
+  background-color: var(--light-gray-color) !important;
+}
+
+.ant-btn-link:hover, .ant-btn-link:focus, .ant-btn-link:active {
+  color: var(--primary-color) !important;
+}
+
+.ant-btn-link {
+  padding: 0;
+  height: 24px !important;
+  line-height: 24px !important;
+}
+
+.ant-btn > .anticon + span, .ant-btn > span + .anticon {
+  margin-left: 0 !important;
+  margin-right: 8px;
+}
+
+/************************************ Label **********************************/
+.ant-form-item-label > label {
+  font-size: 11px !important;
+  height: 20px !important;
+  margin-bottom: 2px;
+  flex-direction: row-reverse;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.45) !important;
+}
+
+.ant-form-item-label > label::after {
+  content: '' !important;
+  margin: 0 !important;
+}
+
+.ant-form-item-label > label::before {
+  color: var(--error-color) !important;
+}
+
+/************************************ Number Input **********************************/
+.ant-input-number-input {
+  text-align: right !important;
+}
+
+.ant-input-number, .ant-input-number-input {
+  border-radius: 4px;
+}
+
+.ant-input-number-input {
+  height: 34px;
+}
+
+.ant-input-number-handler-wrap {
+  display: none;
+}
+
+/************************************ Input **********************************/
+.ant-input {
+  border-radius: 4px;
+  height: 34px;
+  line-height: 34px;
+}
+
+.ant-input:focus, .ant-input-focused, .ant-input:hover {
+  border-color: #969696;
+}
+
+/************************************ CheckBox **********************************/
+.ant-checkbox {
+  top: 4px !important;
+}
+
+
+/************************************ Select **********************************/
+.ant-select {
+  width: 100%;
+}
+
+.ant-select-selector {
+  border-radius: 4px !important;
+}
+
+.ant-select-dropdown {
+  border: 1px solid #eee;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  margin: 0 !important;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: #2964d933 !important;
+}
+
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: #969696 !important;
+}
+
+.ant-select-item-option-content {
+  direction: rtl;
+}
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-search {
+  right: 11px !important;
+  left: 25px !important;
+}
+
+nz-select-item {
+  text-align: right !important;
+}
+
+.ant-select-arrow {
+  right: auto !important;
+  left: 11px;
+}
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+.ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+  padding-right: 0 !important;
+  padding-left: 18px;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  box-shadow: none !important;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  height: 34px !important;
+}
+
+/************************************ Modal **********************************/
+.ant-modal {
+  direction: rtl !important;
+}
+
+.ant-modal-footer {
+  padding: 0!important;
+}
+
+.ant-modal-content {
+  border-radius: 10px;
+}
+
+.ant-modal-header, .ant-modal-footer {
+  border-radius: 10px 10px 0 0 !important;
+}
+
+.ant-modal-header {
+  text-align: right;
+}
+
+.ant-modal-close {
+  right: auto;
+  left: 0;
+}
+
+.ant-modal-close-x {
+  line-height: 50px !important;
+  display: none;
+}
+
+.ant-modal-footer {
+  border: none !important;
+  text-align: center;
+}
+
+/************************************ Stepper **********************************/
+/*.ant-steps {*/
+/*  direction: ltr;*/
+/*}*/
+
+.ant-steps-label-vertical .ant-steps-item-content {
+  text-align: right;
+}
+
+.ant-steps-item-icon {
+  margin: 0 !important;
+}
+
+.ant-steps-dot .ant-steps-item-tail,
+.ant-steps-dot.ant-steps-small .ant-steps-item-tail {
+  margin: 0 70px 0 0 !important;
+}
+
+.ant-steps-dot .ant-steps-item-tail::after,
+.ant-steps-dot.ant-steps-small .ant-steps-item-tail::after {
+  margin-left: 0 !important;
+  margin-right: 12px;
+}
+
+.ant-steps-dot .ant-steps-item-content,
+.ant-steps-dot.ant-steps-small .ant-steps-item-content {
+  width: 100% !important;
+}
+
+.ant-steps-item-title {
+  font-size: 13px !important;
+}
+
+/************************************ Icon **********************************/
+.anticon {
+  vertical-align: 0 !important;
+}
+
+/************************************ Drawer **********************************/
+.ant-drawer-content-wrapper {
+  direction: rtl;
+}
+
+.ant-drawer-body {
+  padding: 16px !important;
+}
+
+/************************************ Notification **********************************/
+.ant-notification-notice {
+  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%) !important;
+}
+
+.ant-notification-notice-close {
+  right: auto !important;
+  top: 18px !important;
+  left: 22px;
+}
+
+.ant-notification-notice-icon {
+  margin-left: 0 !important;
+  font-size: 22px !important;
+  right: 14px;
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-description {
+  margin-left: 0 !important;
+  margin-right: 25px;
+  direction: rtl;
+}
