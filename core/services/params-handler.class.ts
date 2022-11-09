@@ -1,35 +1,94 @@
+import {Dictionary} from "@libraries/shared/models/Dictionary";
+
 export class ParamsHandler {
-  private params: Record<string, any> = {};
+  private params: Dictionary<any> = {};
+  constructor(params: Dictionary<any> | undefined = undefined) {
+    if (params !== undefined) {
+      this.params = Object.assign({}, params);
+    }
+  }
 
-  constructor() {}
+  public static eup(object: any): string {
+    let url = '';
+    url = JSON.stringify(object, (key, value) => {
+      if (value !== null) {
+        return value;
+      }
+    });
+    return window.btoa(url);
+  }
 
-  public addParam(key: string, value: any, ignoreNull = true) {
-    if (!ignoreNull || value != null) {
+  public static dup<T>(url: string): T {
+    return url !== undefined && url !== '' ? JSON.parse(window.atob(url)) : null;
+  }
+
+  public clear() {
+    this.params = {};
+  }
+
+  public addParam(key: any, value: any): ParamsHandler {
+    if (value !== undefined && value !== null) {
       this.params[key] = value;
     }
     return this;
   }
 
-  public getParams(): Record<string, any> {
+  public removeParam(key: any): ParamsHandler {
+    if (Object.keys(this.params).indexOf(key) !== -1) {
+      delete this.params[key];
+    }
+    return this;
+  }
+
+  public getParams(): object {
     return this.params;
   }
 
-  public clear() {
-    delete this.params;
-    this.params = {};
-  }
-
   public count() {
-    return Object.keys(this.params).length;
+    if (this.params) {
+      const objPropName = Object.getOwnPropertyNames(this.params);
+      return objPropName.length;
+    } else {
+      return 0;
+    }
   }
 
-  public get urlParameters(): string {
-    let objStr = "";
-    Object.keys(this.params).forEach((key) => {
-      if (this.params[key] !== "") {
-        objStr += key + "=" + encodeURIComponent(this.params[key]) + "&";
+  /* break reference */
+  public toJson(ignoreNull: boolean = false): Dictionary<any> {
+    const objPropName = Object.getOwnPropertyNames(this.params);
+    let obj: any = {};
+    for (const item of objPropName) {
+      if (
+        (ignoreNull === true &&
+          this.params[item] !== '' &&
+          this.params[item] !== null &&
+          this.params[item] !== undefined) ||
+        ignoreNull === false
+      ) {
+        obj[item] = this.params[item];
       }
-    });
+    }
+    return obj;
+  }
+
+  public urlParameters(ignoreNull = true, encode = false): string {
+    const objPropName = Object.getOwnPropertyNames(this.params);
+    let objStr = '';
+    for (const item of objPropName) {
+      if (
+        (ignoreNull === true &&
+          this.params[item] !== '' &&
+          this.params[item] !== null &&
+          this.params[item] !== undefined) ||
+        ignoreNull === false
+      ) {
+        objStr += `${item}=${
+          encode === true
+            ? encodeURIComponent(this.params[item])
+            : this.params[item]
+        }&`;
+      }
+    }
     return objStr.substring(0, objStr.length - 1);
   }
 }

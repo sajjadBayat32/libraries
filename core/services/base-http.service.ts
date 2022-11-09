@@ -209,7 +209,7 @@ class RequestBuilder {
     destinationVar: ParamsHandler
   ) {
     Object.keys(model).forEach((key) => {
-      destinationVar.addParam(key, model[key], this.config.ignoreNullParams);
+      destinationVar.addParam(key, model[key]);
     });
   }
 
