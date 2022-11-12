@@ -279,7 +279,6 @@ nz-select-item {
 }
 
 .ant-table-pagination > * {
-  border-radius: 8px !important;
   height: 28px !important;
   min-height: 28px;
   line-height: 25px !important;
@@ -287,19 +286,14 @@ nz-select-item {
 }
 
 .ant-pagination-item-active {
-  background: #1890ff !important;
+  background: var(--primary-color) !important;
   color: #fff;
-}
-
-.ant-pagination-next .ant-pagination-item-link,
-.ant-pagination-prev .ant-pagination-item-link {
-  border-radius: 8px;
 }
 
 .ant-pagination-item-active:focus-visible a,
 .ant-pagination-item-active:hover a {
   color: #fff !important;
-  border-color: #1890ff !important;
+  border-color: var(--primary-color) !important;
 }
 
 .ant-pagination-next {
