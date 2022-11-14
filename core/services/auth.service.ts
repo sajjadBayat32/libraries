@@ -56,10 +56,10 @@ export class AuthService {
     return getLocalStorage('JWT_Token');
   }
 
-  doLoginUser(user: User, tokens: { access: Token, refresh: Token }) {
+  doLoginUser(user: User, tokens: { access: Token, refresh: Token }, redirectUrl: string) {
     this.loggedUser = user;
     this.storeTokens(tokens);
-    this.router.navigate(["/admin/home"]).then()
+    this.router.navigate([redirectUrl]).then()
   }
 
   private doLogoutUser() {

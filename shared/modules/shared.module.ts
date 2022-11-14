@@ -4,6 +4,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PageLoadingComponent} from "../components/page-loading/page-loading.component";
 import {NzSpinModule} from "ng-zorro-antd/spin";
 import {NzMessageModule} from "ng-zorro-antd/message";
+import {ImageSourceDirective} from "@libraries/shared/directives/image-source.directive";
+import {PageComingSoonComponent} from "@libraries/shared/components/page-coming-soon/page-coming-soon.component";
+import {PageNotFoundComponent} from "@libraries/shared/components/page-not-found/page-not-found.component";
 
 const MODULES = [
   FormsModule,
@@ -13,12 +16,19 @@ const MODULES = [
 ]
 
 const COMPONENTS = [
-  PageLoadingComponent
+  PageComingSoonComponent,
+  PageLoadingComponent,
+  PageNotFoundComponent
+]
+
+const Directives = [
+  ImageSourceDirective
 ]
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...Directives
   ],
   imports: [
     CommonModule,
@@ -26,7 +36,8 @@ const COMPONENTS = [
   ],
   exports: [
     ...MODULES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...Directives
   ]
 })
 export class SharedModule {
