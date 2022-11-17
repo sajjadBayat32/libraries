@@ -100,13 +100,13 @@ class RequestBuilder {
       this.toaster.create(
         'warning',
         'you are not connected to Internet ,Please check your connection!'
-        )
+      )
     }
 
     const hasParam =
       this.urlParameters !== undefined && this.urlParameters.count() > 0;
     const urlWithParams =
-      this.getUrl() + (hasParam ? "?" + this.urlParameters.urlParameters : "");
+      this.getUrl() + (hasParam ? "?" + this.urlParameters.urlParameters() : "");
 
     let headers = new HttpHeaders({
       "Content-Type": "application/json",
