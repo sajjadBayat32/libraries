@@ -1,28 +1,26 @@
 export class Complex {
+  id: string;
+  managers: string[];
+  description: string;
+  name: string;
+  logo: string;
   location: {
     "type": string,
     "coordinates": number[]
   };
-  description: string;
-  admin: string;
-  managers: string[];
-  name: string;
-  logo: string;
   contacts: {
     title: string,
     value: string,
     id: string
   }[];
-  id: string;
 
-  constructor() {
-    this.location = {type: '', coordinates: []};
-    this.description = '';
-    this.admin = '';
-    this.managers = [];
-    this.name = '';
-    this.logo = '';
-    this.contacts = [];
-    this.id = '';
+  constructor(item: any) {
+    this.location = item.location;
+    this.description = item.description;
+    this.managers = item.managers;
+    this.name = item.name;
+    this.logo = item.logo;
+    this.contacts = item.contacts;
+    this.id = item.id;
   }
 }

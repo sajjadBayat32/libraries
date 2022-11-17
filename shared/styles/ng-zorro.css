@@ -321,3 +321,7 @@ nz-select-item {
 .ant-empty-image {
   height: auto !important;
 }
+
+.ant-empty-description {
+  color: #ccc !important;
+}
