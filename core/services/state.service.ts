@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
-import {ActivationEnd, NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
+import {ActivationEnd, NavigationEnd, Params, Router} from '@angular/router';
+import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
 import {Dictionary} from "@libraries/shared/models/Dictionary";
+import {FilterChip, FilterChips, FilterChipTypes} from "../../../app/shared/types/filter-chip.types";
 
 @Injectable({providedIn: 'root'})
 export class StateService {
+  // public lock: boolean = false;
   public viewState: any = {};
-  public lock: boolean = false;
-  private _routerParams: string = "";
+  public filterChips: BehaviorSubject<Dictionary<FilterChip>> = new BehaviorSubject({});
   private _getStateChange$: BehaviorSubject<any> | undefined;
 
   constructor(private router: Router) {
@@ -15,84 +16,77 @@ export class StateService {
   }
 
   private _init() {
-    let backTrigger = false;
     let refreshTrigger = true;
+    let queryParams = {};
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this._routerParams = "";
-      }
       if (event instanceof ActivationEnd) {
-        if (event.snapshot.params['params']) {
-          this._routerParams = event.snapshot.params['params'];
-        }
+        queryParams = event.snapshot.queryParams
         if (refreshTrigger) {
           refreshTrigger = false;
-          this._getStateChange$ = new BehaviorSubject(this._routerParams ? this.decode(this._routerParams) : {});
+          this._getStateChange$ = new BehaviorSubject(queryParams);
         }
       }
-      if (event['navigationTrigger'] === 'popstate') {
-        backTrigger = true;
-      }
-      if (event instanceof NavigationEnd && backTrigger) {
-        backTrigger = false;
-        let params = this._routerParams
-          ? this.decode(this._routerParams)
-          : {};
-        this._getStateChange$?.next(params);
+      if (event instanceof NavigationEnd) {
+        this._getStateChange$.next(queryParams);
       }
     });
   }
 
   private getRouteWithoutParam() {
-    if (this._routerParams) {
-      let routeSegment = this.router.url.split('/');
-      let paramRouteSegment = routeSegment[routeSegment.length - 1];
-      return this.router.url.replace(paramRouteSegment, '');
-    } else {
-      return this.router.url;
-    }
+    return this.router.url.split('?')[0]
   }
 
   public get getStateChange() {
-    return this._getStateChange$?.asObservable();
+    return this._getStateChange$?.asObservable().pipe(distinctUntilChanged());
   }
 
   public encode(object: any): string {
     return btoa(JSON.stringify(object));
   }
 
-  public decode(url: string) {
-    return JSON.parse(atob(url));
-  }
-
-  public refreshUrl() {
-    this.router.navigate([
-      this.getRouteWithoutParam(),
-      this.encode(this.viewState)
-    ]).then();
-  }
-
-  public updateViewState(params: Dictionary<any>) {
-    if (params != null) {
+  public updateViewState(params?: Params, routeTo?: string) {
+    if (params) {
       for (let p in params) {
         this.viewState[p] = params[p];
       }
     }
-    this.refreshUrl();
+    this.refreshUrl(routeTo);
   }
 
-  public resetViewState(params: Dictionary<any>) {
-    if (this.viewState != null) {
+  public removeFromViewState(key: string) {
+    if (this.viewState)
+      delete this.viewState[key];
+    this.updateViewState();
+  }
+
+  public resetViewState(params?: Params) {
+    if (this.viewState) {
       for (let p in this.viewState) {
         delete this.viewState[p];
       }
     }
-    if (params != null) {
-      for (let p in params) {
-        this.viewState[p] = params[p];
+    this.updateViewState();
+  }
+
+  public refreshUrl(routeTo?: string) {
+    this.router.navigate(
+      [routeTo ? routeTo : this.getRouteWithoutParam()],
+      {queryParams: this.viewState}
+    ).then();
+  }
+
+  getRequiredState(state: Params) {
+    let requiredFilterModel: Params = {};
+    let requiredFilterChips: Dictionary<FilterChip> = {};
+    for (let f in FilterChips) {
+      if (state.hasOwnProperty(f)) {
+        requiredFilterModel[f] = state[f];
+        requiredFilterChips[f] = {name: FilterChips[f as keyof typeof FilterChips].name, value: state[f]} ;
       }
     }
-    this.refreshUrl();
+
+    this.filterChips.next(requiredFilterChips);
+    return requiredFilterModel;
   }
 
   public destroyState() {

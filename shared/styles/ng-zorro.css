@@ -245,7 +245,7 @@ nz-select-item {
   text-align: right !important;
   border: none !important;
   padding: 10px 16px !important;
-  background-color: #f7f7f7 !important;
+  background-color: #f4f4f4 !important;
 }
 
 .ant-table-thead > tr > th:first-child,
@@ -260,16 +260,22 @@ nz-select-item {
   border-bottom-left-radius: 10px !important;
 }
 
+.ant-table-tbody {
+  position: relative;
+  top: 5px;
+}
+
 .ant-table-tbody > tr > td {
   text-align: right !important;
   font-size: 13px !important;
-  padding: 10px 16px !important;
+  padding: 6px 16px !important;
   border-bottom: none !important;
 }
 
 .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
   right: auto !important;
   left: 0 !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 
@@ -287,6 +293,9 @@ nz-select-item {
 
 .ant-pagination-item-active {
   background: var(--primary-color) !important;
+}
+
+.ant-pagination-item-active a {
   color: #fff !important;
 }
 
@@ -324,4 +333,18 @@ nz-select-item {
 
 .ant-empty-description {
   color: #ccc !important;
+}
+
+
+/**************************************Tag**********************************************/
+.ant-tag {
+  border-radius: 4px !important;
+  margin: 0 !important;
+}
+
+.ant-tag i {
+  position: relative !important;
+  top: -1px !important;
+  margin-left: 0 !important;
+  margin-right: 7px !important;
 }
