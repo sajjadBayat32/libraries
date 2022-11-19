@@ -6,28 +6,24 @@ import {FilterChip, FilterChips, FilterChipTypes} from "../../../app/shared/type
 
 @Injectable({providedIn: 'root'})
 export class StateService {
-  // public lock: boolean = false;
+  public lock: boolean = false;
   public viewState: any = {};
   public filterChips: BehaviorSubject<Dictionary<FilterChip>> = new BehaviorSubject({});
-  private _getStateChange$: BehaviorSubject<any> | undefined;
+  private _getStateChange$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(private router: Router) {
     this._init();
   }
 
   private _init() {
-    let refreshTrigger = true;
     let queryParams = {};
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
         queryParams = event.snapshot.queryParams
-        if (refreshTrigger) {
-          refreshTrigger = false;
-          this._getStateChange$ = new BehaviorSubject(queryParams);
-        }
       }
       if (event instanceof NavigationEnd) {
         this._getStateChange$.next(queryParams);
+        this.setFilterChips(queryParams);
       }
     });
   }
@@ -75,18 +71,22 @@ export class StateService {
     ).then();
   }
 
-  getRequiredState(state: Params) {
-    let requiredFilterModel: Params = {};
-    let requiredFilterChips: Dictionary<FilterChip> = {};
+  setFilterChips(state: Params) {
+    let filterChips: Dictionary<FilterChip> = {};
     for (let f in FilterChips) {
       if (state.hasOwnProperty(f)) {
-        requiredFilterModel[f] = state[f];
-        requiredFilterChips[f] = {name: FilterChips[f as keyof typeof FilterChips].name, value: state[f]} ;
+        filterChips[f] = {name: FilterChips[f as keyof typeof FilterChips].name, value: state[f]};
       }
     }
+    this.filterChips.next(filterChips);
+  }
 
-    this.filterChips.next(requiredFilterChips);
-    return requiredFilterModel;
+  lockFilterChips() {
+    this.lock = true;
+  }
+
+  unlockFilterChips() {
+    this.lock = false;
   }
 
   public destroyState() {
