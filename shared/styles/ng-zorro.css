@@ -335,12 +335,11 @@ nz-select-item {
   color: #ccc !important;
 }
 
-
 /**************************************Tag**********************************************/
 .ant-tag {
   border-radius: 8px !important;
   margin: 0 !important;
-  padding: 6px 8px !important;
+  padding: 6px 10px !important;
 }
 
 .ant-tag i {
@@ -348,4 +347,15 @@ nz-select-item {
   top: -1px !important;
   margin-left: 0 !important;
   margin-right: 7px !important;
+}
+
+/**************************************Message**********************************************/
+.ant-message {
+  direction: rtl !important;
+}
+
+.ant-message .anticon {
+  top: -1px !important;
+  margin-left: 8px !important;
+  margin-right: 0 !important;
 }
