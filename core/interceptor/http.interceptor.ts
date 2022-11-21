@@ -69,8 +69,9 @@ export class HttpInterceptor implements HttpInterceptor {
 
   updateRequestParams(url: string) {
     let urlParams = new URLSearchParams(url.split('?')[1]);
-    urlParams.forEach((value: any, key) => {
-      if (value instanceof Date && moment(value).isValid()) {
+    urlParams.forEach((value, key) => {
+      // TODO: handle numbers which are moment valid but not date time. recommended way is to check it by length
+      if (moment(value).isValid()) {
         urlParams.set(key, moment(value).locale('en').format('YYYY-MM-DD'))
       }
     })
