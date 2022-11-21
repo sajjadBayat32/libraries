@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ActivationEnd, NavigationEnd, Params, Router} from '@angular/router';
 import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
-import {Dictionary} from "@libraries/shared/models/Dictionary";
-import {FilterChip, FilterChips, FilterChipTypes} from "../../../app/shared/types/filter-chip.types";
 
 @Injectable({providedIn: 'root'})
 export class StateService {
   public lock: boolean = false;
   public viewState: any = {};
-  public filterChips: BehaviorSubject<Dictionary<FilterChip>> = new BehaviorSubject({});
   private _getStateChange$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(private router: Router) {
@@ -23,7 +20,6 @@ export class StateService {
       }
       if (event instanceof NavigationEnd) {
         this._getStateChange$.next(queryParams);
-        this.setFilterChips(queryParams);
       }
     });
   }
@@ -69,16 +65,6 @@ export class StateService {
       [routeTo ? routeTo : this.getRouteWithoutParam()],
       {queryParams: this.viewState}
     ).then();
-  }
-
-  setFilterChips(state: Params) {
-    let filterChips: Dictionary<FilterChip> = {};
-    for (let f in FilterChips) {
-      if (state.hasOwnProperty(f)) {
-        filterChips[f] = {name: FilterChips[f as keyof typeof FilterChips].name, value: state[f]};
-      }
-    }
-    this.filterChips.next(filterChips);
   }
 
   lockFilterChips() {
