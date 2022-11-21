@@ -38,6 +38,14 @@
   background: linear-gradient(320deg, #f1696b, var(--error-color));
 }
 
+.text-end {
+  text-align: left !important;
+}
+
+.text-start {
+  text-align: right !important;
+}
+
 /*****************************Android click animation*************************************/
 .ripple {
   position: relative;

@@ -29,7 +29,7 @@ export class HttpInterceptor implements HttpInterceptor {
       request = HttpInterceptor.addToken(request, this.authService.getJwtToken());
     }
     request = this.modifyRequestUrl(request);
-    if (request.body){
+    if (request.body) {
       request = this.modifyRequestBody(request);
     }
     return next.handle(request).pipe(
@@ -61,16 +61,16 @@ export class HttpInterceptor implements HttpInterceptor {
   }
 
   private modifyRequestUrl(request: HttpRequest<any>) {
-    let newRequestUrl = this.updateRequestUrlParams(request.url);
+    let newRequestUrl = this.updateRequestParams(request.url);
     return request.clone({
-      url: request.url.split('?')[0] + '?' +newRequestUrl
+      url: request.url.split('?')[0] + '?' + newRequestUrl
     })
   }
 
-  updateRequestUrlParams(url: string) {
+  updateRequestParams(url: string) {
     let urlParams = new URLSearchParams(url.split('?')[1]);
-    urlParams.forEach((value, key) => {
-      if (moment(value).isValid()) {
+    urlParams.forEach((value: any, key) => {
+      if (value instanceof Date && moment(value).isValid()) {
         urlParams.set(key, moment(value).locale('en').format('YYYY-MM-DD'))
       }
     })
@@ -79,10 +79,10 @@ export class HttpInterceptor implements HttpInterceptor {
 
   updateRequestBody(body: Dictionary<any>): Dictionary<any> {
     Object.keys(body).forEach((key) => {
-      if (!body[key]) {
+      if (body[key] === null || body[key] === undefined) {
         delete body[key];
       }
-      if (moment(body[key]).isValid()) {
+      if (body[key] instanceof Date && moment(body[key]).isValid()) {
         body[key] = moment(body[key]).locale('en').format('YYYY-MM-DD');
       }
     })

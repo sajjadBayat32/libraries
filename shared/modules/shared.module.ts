@@ -7,6 +7,7 @@ import {NzMessageModule} from "ng-zorro-antd/message";
 import {ImageSourceDirective} from "@libraries/shared/directives/image-source.directive";
 import {PageComingSoonComponent} from "@libraries/shared/components/page-coming-soon/page-coming-soon.component";
 import {PageNotFoundComponent} from "@libraries/shared/components/page-not-found/page-not-found.component";
+import {OutsideClickDirective} from "@libraries/shared/directives/outside-click.directive";
 
 const MODULES = [
   FormsModule,
@@ -22,7 +23,8 @@ const COMPONENTS = [
 ]
 
 const Directives = [
-  ImageSourceDirective
+  ImageSourceDirective,
+  OutsideClickDirective
 ]
 
 @NgModule({

@@ -44,7 +44,8 @@
 
 /************************************ Number Input **********************************/
 .ant-input-number-input {
-  text-align: right !important;
+  text-align: left !important;
+  direction: ltr !important;
 }
 
 .ant-input-number, .ant-input-number-input {
