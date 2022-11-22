@@ -246,19 +246,26 @@ nz-select-item {
   text-align: right !important;
   border: none !important;
   padding: 10px 16px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
   background-color: #f4f4f4 !important;
 }
 
 .ant-table-thead > tr > th:first-child,
 .ant-table-tbody > tr > td:first-child {
-  border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
 }
 
 .ant-table-thead > tr > th:last-child,
 .ant-table-tbody > tr > td:last-child {
-  border-top-left-radius: 10px !important;
-  border-bottom-left-radius: 10px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td,
+.ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: #f4f4f4 !important;
 }
 
 .ant-table-tbody {
@@ -269,7 +276,7 @@ nz-select-item {
 .ant-table-tbody > tr > td {
   text-align: right !important;
   font-size: 13px !important;
-  padding: 6px 16px !important;
+  padding: 0 16px !important;
   border-bottom: none !important;
 }
 
