@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 
+// usage: add ***(outsideClick)="function" outsideClick*** to html tag
 @Directive({
   selector: '[outsideClick]',
 })
@@ -20,5 +21,6 @@ export class OutsideClickDirective {
     }
   }
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) {
+  }
 }

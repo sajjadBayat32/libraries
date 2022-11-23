@@ -31,9 +31,10 @@ export abstract class SubscriptionManager {
   }
 
   public removeSub(tag: string) {
-    let subs = this.subscriptions.find((item) => item.tag === tag)?.subscription;
-    if (subs) {
-      subs.unsubscribe();
+    let sub = this.subscriptions.find((item) => item.tag === tag);
+    if (sub) {
+      sub.subscription.unsubscribe();
+      this.subscriptions = this.subscriptions.filter((item) => item.tag !== tag);
     }
   }
 

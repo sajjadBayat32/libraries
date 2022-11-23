@@ -288,10 +288,6 @@ nz-select-item {
 
 
 /**************************************Pagination**********************************************/
-.ant-table-pagination.ant-pagination {
-  direction: ltr !important;
-}
-
 .ant-table-pagination > * {
   height: 28px !important;
   min-height: 28px;
@@ -313,8 +309,8 @@ nz-select-item {
   border-color: var(--primary-color) !important;
 }
 
-.ant-pagination-next {
-  margin-right: auto;
+.ant-table-wrapper.ant-table-wrapper-rtl .ant-table-pagination-right {
+  justify-content: flex-end !important;
 }
 
 .ant-spin-blur::after {
