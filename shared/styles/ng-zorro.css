@@ -248,7 +248,7 @@ nz-select-item {
   padding: 10px 16px !important;
   font-weight: 700 !important;
   font-size: 13px !important;
-  background-color: #f4f4f4 !important;
+  background-color: #f8f8f8 !important;
 }
 
 .ant-table-thead > tr > th:first-child,
@@ -265,7 +265,7 @@ nz-select-item {
 
 .ant-table-tbody > tr.ant-table-row:hover > td,
 .ant-table-tbody > tr > td.ant-table-cell-row-hover {
-  background: #f4f4f4 !important;
+  background: #f8f8f8 !important;
 }
 
 .ant-table-tbody {
