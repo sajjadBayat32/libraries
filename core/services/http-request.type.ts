@@ -9,7 +9,6 @@ export interface Response<T = any> {
 export interface BaseHttpConfig {
   baseUrl: string;
   ignoreNullParams?: boolean;
-  replaceSamePendingRequest?: boolean;
   messageShow?: boolean;
   hasLoading?: boolean;
   ignoreAuthToken?: boolean;

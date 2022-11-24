@@ -29,8 +29,7 @@ export class BaseHttp {
       hasLoading: false,
       ignoreNullParams: true,
       messageShow: true,
-      ignoreAuthToken: false,
-      replaceSamePendingRequest: false
+      ignoreAuthToken: false
     };
   }
 
