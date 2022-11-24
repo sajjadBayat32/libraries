@@ -21,6 +21,7 @@ export abstract class SubscriptionManager {
   }
 
   public addSub(subscription: Subscription, tag?: string) {
+    if (tag) this.removeSub(tag);
     this.subscriptions.push(
       {
         id: ++this.counter,
