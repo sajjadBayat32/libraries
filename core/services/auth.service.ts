@@ -28,6 +28,12 @@ export class AuthService {
       .send<{ user: User, tokens: any }>()
   }
 
+  changePassword(model: {currentPassword: string, newPassword: string}) {
+    return this.baseHttp.createRequest('POST', 'auth/changePass')
+      .addBodies(model)
+      .send()
+  }
+
   logout() {
     this.loggedUser = null;
     this.doLogoutUser();
