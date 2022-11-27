@@ -242,10 +242,16 @@ nz-select-item {
 
 
 /**************************************Table**********************************************/
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td,
+.ant-table tfoot > tr > th,
+.ant-table tfoot > tr > td {
+  padding: 10px 16px !important;
+}
+
 .ant-table-thead > tr > th {
   text-align: right !important;
   border: none !important;
-  padding: 10px 16px !important;
   font-weight: 700 !important;
   font-size: 13px !important;
   background-color: #f8f8f8 !important;
@@ -276,7 +282,6 @@ nz-select-item {
 .ant-table-tbody > tr > td {
   text-align: right !important;
   font-size: 13px !important;
-  padding: 0 16px !important;
   border-bottom: none !important;
 }
 
