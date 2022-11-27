@@ -1,6 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {environment} from 'src/environments/environment';
 import {User} from '../../shared/models/User';
 import {Router} from "@angular/router";
 import {Token} from "../../shared/models/Token";
@@ -28,8 +27,8 @@ export class AuthService {
       .send<{ user: User, tokens: any }>()
   }
 
-  changePassword(model: {currentPassword: string, newPassword: string}) {
-    return this.baseHttp.createRequest('POST', 'auth/changePass')
+  changePassword(model: {password: string, token: string}) {
+    return this.baseHttp.createRequest('POST', 'auth/reset-password')
       .addBodies(model)
       .send()
   }

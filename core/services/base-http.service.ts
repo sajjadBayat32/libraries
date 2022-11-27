@@ -8,6 +8,7 @@ import {BaseHttpConfig, HttpVerb, Response} from "./http-request.type";
 import {environment} from "../../../environments/environment";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {getLocalStorage} from "../../shared/utils/local-storage";
+import {ErrorHandlerService} from "@libraries/core/services/error-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -57,18 +58,20 @@ class RequestBuilder {
   http: HttpClient;
   baseHttp: BaseHttp;
   toaster: NzMessageService;
+  errorHandler: ErrorHandlerService;
 
   constructor(
     private verb: HttpVerb = "GET",
     private url: string,
     private baseHttpConfig: BaseHttpConfig,
-    private injector: Injector
+    private injector: Injector,
   ) {
     this.requestUrl = url;
     this.config = baseHttpConfig;
     this.http = injector.get(HttpClient);
     this.baseHttp = injector.get(BaseHttp);
     this.toaster = injector.get(NzMessageService);
+    this.errorHandler = injector.get(ErrorHandlerService);
     this.bodyParameters = new ParamsHandler();
     this.urlParameters = new ParamsHandler();
   }
@@ -98,7 +101,8 @@ class RequestBuilder {
     if (!window.navigator.onLine) {
       this.toaster.create(
         'warning',
-        'you are not connected to Internet ,Please check your connection!'
+        'لطفا از اتصال خود به شبکه اینترنت مطمئن شوید',
+        {nzDuration: 10000}
       )
     }
 
@@ -144,7 +148,7 @@ class RequestBuilder {
     let result: Subject<Response<T>> = new Subject<Response<T>>();
     const subscription = request$
       .pipe(
-        /**this is an http call so finalize will call first after any response nor error */
+        /**this is a http call so finalize will call first after any response nor error */
         finalize(() => {
         }),
         map(RequestBuilder.handlePipeMap),
@@ -152,7 +156,7 @@ class RequestBuilder {
           result.error(error);
           return this.errorHandling(error);
         }),
-        tap((resp) => this.messageHandling<T>(this, resp))
+        // tap((resp) => this.messageHandling<T>(this, resp))
       )
       .subscribe((resp) => {
         this.removeRequestFromPending(this.getUrl());
@@ -179,24 +183,17 @@ class RequestBuilder {
   }
 
   private messageHandling<T>(parent: RequestBuilder, resp: Response<T>) {
-    if (parent.config.messageShow && resp.message?.trim()) {
+    if (parent.config.messageShow && resp.message) {
       this.toaster.create(
-        resp.success ? "success" : "danger",
-        resp.message.trim()
+        "success",
+        resp.message
       );
     }
   }
 
   private errorHandling(error: HttpErrorResponse) {
-    let toastMsg = error?.error?.message;
-    this.toaster.error(toastMsg, {
-      nzDuration: RequestBuilder.calculateToastDuration(toastMsg),
-    })
+    this.errorHandler.handle(error)
     return throwError(() => error);
-  }
-
-  private static calculateToastDuration(msg: string) {
-    return msg.length * 100;
   }
 
   private static get token(): string {

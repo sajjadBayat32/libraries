@@ -34,13 +34,22 @@ export class HttpInterceptor implements HttpInterceptor {
     }
     return next.handle(request).pipe(
       catchError((error) => {
-        if (error instanceof HttpErrorResponse && error.status === 401) {
+        if (
+          error instanceof HttpErrorResponse &&
+          HttpInterceptor.hasToken(request) &&
+          !request.url.includes('auth/refresh-tokens') &&
+          error.status === 401
+        ) {
           return this.handle401Error(request, next);
         } else {
           return throwError(error);
         }
       })
     );
+  }
+
+  private static hasToken(request: HttpRequest<any>) {
+    return request.headers.get('Authorization') !== 'null';
   }
 
   private static addToken(request: HttpRequest<any>, token: string) {
